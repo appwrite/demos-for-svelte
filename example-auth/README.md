@@ -242,7 +242,7 @@ If you want you can style this yourself, but for those who don't want to add the
 ## What next?
 Congratulations! You've just created a login page using Svelte and Appwrite! 🥳🥳🥳
 
-If you noticed I left out the Register section for this tutorial and that was intentional. This is where I hand it off to you and allow you to use the techniques and ideas you used creating this project to add your own register page! The code to swich to the register page is already there you just need to add the form and create the functions to add it.
+If you noticed I left out the Register section for this tutorial and that was intentional. This is where I hand it off to you and allow you to use the techniques and ideas you used creating this project to add your own register page! The code to switch to the register page is already there you just need to add the form and create the functions to add it.
 
 Add your Form code by replacing the section with:
 ```
