@@ -8,7 +8,6 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			user: Models.User<Preferences> | null;
-			appwrite: AppwriteService;
 		}
 		// interface PageData {}
 		// interface Platform {}

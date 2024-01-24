@@ -1,17 +1,14 @@
-import { AppwriteService } from '$lib/server/appwrite';
+import { createAppwriteClient } from '$lib/server/appwrite';
 
 export async function handle({ event, resolve }) {
-	const appwrite = new AppwriteService();
+	const { account } = createAppwriteClient(event);
 
-	appwrite.setForwardedHeaders(event.request.headers);
+	let user = null;
+	try {
+		user = await account.get();
+	} catch (error) {}
 
-	const hasSessionCookie = appwrite.setSessionFromCookies(event.cookies);
-	event.locals.appwrite = appwrite;
-
-	if (hasSessionCookie) {
-		const user = await appwrite.getLoggedInUser();
-		event.locals.user = user;
-	}
+	event.locals.user = user && user.$id ? user : null;
 
 	return resolve(event);
 }

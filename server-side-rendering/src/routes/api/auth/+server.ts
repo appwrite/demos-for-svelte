@@ -1,28 +1,33 @@
-import { SESSION_COOKIE } from '$lib/server/appwrite.js';
+import { SESSION_COOKIE, createAppwriteClient } from '$lib/server/appwrite.js';
 
-export async function GET({ url, locals, cookies }) {
-	const { account } = locals.appwrite;
+export async function GET(event) {
+	const userId = event.url.searchParams.get('userId');
+	const secret = event.url.searchParams.get('secret');
 
-	const userId = url.searchParams.get('userId');
-	const secret = url.searchParams.get('secret');
+	if (!userId || !secret) {
+		throw new Error('Missing userId or secret');
+	}
 
-	const headers = new Headers();
+	const { account } = createAppwriteClient(event);
+	const session = await account.createSession(userId, secret);
 
-	if (userId && secret) {
-		const session = await account.createSession(userId, secret);
+	if (!session.secret) {
+		throw new Error('Missing session secret');
+	}
 
-		console.log('session', session);
+	const headers = new Headers({
+		location: '/'
+	});
 
-		const setCookie = cookies.serialize(SESSION_COOKIE, session.secret, {
+	headers.set(
+		'set-cookie',
+		event.cookies.serialize(SESSION_COOKIE, session.secret, {
 			sameSite: 'strict',
 			expires: new Date(session.expire),
 			secure: true,
 			path: '/'
-		});
-		headers.set('set-cookie', setCookie);
-	}
-
-	headers.set('location', '/');
+		})
+	);
 
 	return new Response(null, { status: 302, headers });
 }

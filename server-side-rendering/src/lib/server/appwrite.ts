@@ -1,52 +1,44 @@
-import type { Cookies } from '@sveltejs/kit';
-import { Client, Account, type Models, Users } from 'luke-node-appwrite-ssr';
+import type { Cookies, RequestEvent } from '@sveltejs/kit';
+import { Client, Account, Users } from 'luke-node-appwrite-ssr';
 import { APPWRITE_KEY } from '$env/static/private';
 import { PUBLIC_APPWRITE_ENDPOINT } from '$env/static/public';
 
 export const SESSION_COOKIE = 'a_session';
 const PROJECT_ID = 'ssr';
 
-export class AppwriteService {
-	client: Client;
-	account: Account;
-	users: Users;
+export function createAppwriteClient(
+	event: RequestEvent,
+	clientOptions?: { setKey?: boolean; setSession?: boolean }
+) {
+	const client = new Client().setEndpoint(PUBLIC_APPWRITE_ENDPOINT).setProject(PROJECT_ID);
 
-	constructor() {
-		this.client = new Client()
-			.setEndpoint(PUBLIC_APPWRITE_ENDPOINT)
-			.setProject(PROJECT_ID)
-			.setKey(APPWRITE_KEY);
+	const { setKey = true, setSession = true } = clientOptions ?? {};
 
-		this.account = new Account(this.client);
-		this.users = new Users(this.client);
+	if (setKey) {
+		client.setKey(APPWRITE_KEY);
 	}
 
-	setSessionFromCookies(cookies: Cookies): boolean {
-		const session = cookies.get(SESSION_COOKIE);
-		if (!session) return false;
-
-		this.client.setSession(session);
-		return true;
+	const origin = event.request.headers.get('origin');
+	if (origin) {
+		client.setForwardedFor(origin);
 	}
 
-	setForwardedHeaders(headers: Headers): void {
-		const originalIp = headers.get('origin');
-		if (originalIp) this.client.setForwardedFor(originalIp);
-
-		const userAgent = headers.get('user-agent');
-		if (userAgent) this.client.setForwardedUserAgent(userAgent);
+	const userAgent = event.request.headers.get('user-agent');
+	if (userAgent) {
+		client.setForwardedUserAgent(userAgent);
 	}
 
-	async getLoggedInUser(): Promise<Models.User<Models.Preferences> | null> {
-		let user: Models.User<Models.Preferences> | null;
-		try {
-			user = await this.account.get();
-		} catch (error) {
-			return null;
+	const session = event.cookies.get(SESSION_COOKIE);
+	if (session && setSession) {
+		client.setSession(session);
+	}
+
+	return {
+		get account() {
+			return new Account(client);
+		},
+		get users() {
+			return new Users(client);
 		}
-
-		if (!user.$id) return null;
-
-		return user;
-	}
+	};
 }

@@ -1,4 +1,4 @@
-import { SESSION_COOKIE } from '$lib/server/appwrite.js';
+import { SESSION_COOKIE, createAppwriteClient } from '$lib/server/appwrite.js';
 import { redirect } from '@sveltejs/kit';
 
 export async function load({ locals }) {
@@ -10,11 +10,11 @@ export async function load({ locals }) {
 }
 
 export const actions = {
-	default: async ({ locals, cookies }) => {
-		const { account } = locals.appwrite;
+	default: async (event) => {
+		const { account } = createAppwriteClient(event);
 
 		await account.deleteSession('current');
-		cookies.delete(SESSION_COOKIE);
+		event.cookies.delete(SESSION_COOKIE);
 
 		throw redirect(301, '/signin');
 	}
