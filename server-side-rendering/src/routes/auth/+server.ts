@@ -1,22 +1,23 @@
 import { SESSION_COOKIE, createAppwriteClient } from '$lib/server/appwrite.js';
+import { error } from '@sveltejs/kit';
 
 export async function GET(event) {
 	const userId = event.url.searchParams.get('userId');
 	const secret = event.url.searchParams.get('secret');
 
 	if (!userId || !secret) {
-		throw new Error('Missing userId or secret');
+		throw error(500, 'OAuth failed - no userId or secret passed');
 	}
 
 	const { account } = createAppwriteClient(event);
 	const session = await account.createSession(userId, secret);
 
-	if (!session.secret) {
-		throw new Error('Missing session secret');
+	if (!session || !session.secret) {
+		throw error(500, 'Create session from token failed - no session or secret');
 	}
 
 	const headers = new Headers({
-		location: '/'
+		location: '/account'
 	});
 
 	headers.set(

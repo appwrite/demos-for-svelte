@@ -1,33 +1,37 @@
-import type { Cookies, RequestEvent } from '@sveltejs/kit';
-import { Client, Account, Users } from 'luke-node-appwrite-ssr';
+import type { RequestEvent } from '@sveltejs/kit';
+import { Client, Account } from 'luke-node-appwrite-ssr';
 import { APPWRITE_KEY } from '$env/static/private';
-import { PUBLIC_APPWRITE_ENDPOINT } from '$env/static/public';
+import { PUBLIC_APPWRITE_ENDPOINT, PUBLIC_APPWRITE_PROJECT_ID } from '$env/static/public';
 
 export const SESSION_COOKIE = 'a_session';
-const PROJECT_ID = 'ssr';
 
 export function createAppwriteClient(
 	event: RequestEvent,
-	clientOptions?: { setKey?: boolean; setSession?: boolean }
+	options?: { setKey?: boolean; setSession?: boolean }
 ) {
-	const client = new Client().setEndpoint(PUBLIC_APPWRITE_ENDPOINT).setProject(PROJECT_ID);
+	const { setKey = true, setSession = true } = options ?? {};
+	const client = new Client()
+		.setEndpoint(PUBLIC_APPWRITE_ENDPOINT)
+		.setProject(PUBLIC_APPWRITE_PROJECT_ID);
 
-	const { setKey = true, setSession = true } = clientOptions ?? {};
-
+	/* Set the API key for the client, bypassing rate limiting and enabling
+	 * Appwrite to return the `secret` property in the sessions objects. */
 	if (setKey) {
 		client.setKey(APPWRITE_KEY);
 	}
 
+	/* Optional step: set the forwarded headers to record the user's IP address
+	 * and user agent. */
 	const origin = event.request.headers.get('origin');
 	if (origin) {
 		client.setForwardedFor(origin);
 	}
-
 	const userAgent = event.request.headers.get('user-agent');
 	if (userAgent) {
 		client.setForwardedUserAgent(userAgent);
 	}
 
+	/* Extract the session from cookies and use it for the client */
 	const session = event.cookies.get(SESSION_COOKIE);
 	if (session && setSession) {
 		client.setSession(session);
@@ -36,9 +40,6 @@ export function createAppwriteClient(
 	return {
 		get account() {
 			return new Account(client);
-		},
-		get users() {
-			return new Users(client);
 		}
 	};
 }

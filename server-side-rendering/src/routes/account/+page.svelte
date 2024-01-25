@@ -11,7 +11,7 @@
 </script>
 
 <div class="u-max-width-500 u-width-full-line">
-	<h1 class="heading-level-2 u-margin-block-start-auto">Your account 🎉</h1>
+	<h1 class="heading-level-2 u-margin-block-start-auto">Your account</h1>
 	<div class="u-margin-block-start-24">
 		<section class="card">
 			<div class="user-profile">
