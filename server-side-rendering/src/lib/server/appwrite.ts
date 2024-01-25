@@ -3,7 +3,7 @@ import { Client, Account } from 'luke-node-appwrite-ssr';
 import { APPWRITE_KEY } from '$env/static/private';
 import { PUBLIC_APPWRITE_ENDPOINT, PUBLIC_APPWRITE_PROJECT_ID } from '$env/static/public';
 
-export const SESSION_COOKIE = 'a_session';
+export const SESSION_COOKIE = 'my-custom-session';
 
 export function createAppwriteClient(
 	event: RequestEvent,
@@ -11,7 +11,7 @@ export function createAppwriteClient(
 ) {
 	const { setKey = true, setSession = true } = options ?? {};
 	const client = new Client()
-		.setEndpoint(PUBLIC_APPWRITE_ENDPOINT)
+		.setEndpoint(PUBLICs_APPWRITE_ENDPOINT)
 		.setProject(PUBLIC_APPWRITE_PROJECT_ID);
 
 	/* Set the API key for the client, bypassing rate limiting and enabling
