@@ -11,7 +11,7 @@ export function createAppwriteClient(
 ) {
 	const { setKey = true, setSession = true } = options ?? {};
 	const client = new Client()
-		.setEndpoint(PUBLICs_APPWRITE_ENDPOINT)
+		.setEndpoint(PUBLIC_APPWRITE_ENDPOINT)
 		.setProject(PUBLIC_APPWRITE_PROJECT_ID);
 
 	/* Set the API key for the client, bypassing rate limiting and enabling
