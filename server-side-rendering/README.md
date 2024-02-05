@@ -1,18 +1,18 @@
-# create-svelte
+# SSR with SvelteKit & Appwrite
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-## Creating a project
+## Getting started
 
-If you're seeing this, you've probably already done this step. Congrats!
+Create a new project on Appwrite console, and an API key with the following permissions:
+- `accounts.read`
+- `accounts.write`
+- `sessions.read`
+- `sessions.write`
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Create an OAuth2 GitHub app and then use the details to enable GitHub authentication on Appwrite console.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+Copy the `.env.example` file to `.env` and fill in the required environment variables.
 
 ## Developing
 
