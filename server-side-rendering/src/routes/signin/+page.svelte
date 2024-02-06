@@ -11,7 +11,10 @@
 					<p>
 						This is a demo project for <a href="https://appwrite.io">Appwrite</a> server side
 						rendering. View the source code on the
-						<a class="link" href="https://github.com/appwrite/demos-for-svelte">GitHub repository</a
+						<a
+							class="link"
+							href="https://github.com/appwrite/demos-for-svelte/tree/master/server-side-rendering"
+							>GitHub repository</a
 						>.
 					</p>
 				</li>

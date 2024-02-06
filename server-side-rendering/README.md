@@ -1,6 +1,6 @@
 # SSR with SvelteKit & Appwrite
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is a demo of how to use SvelteKit with Appwrite for server-side rendering. It uses Appwrite `createEmailPasswordSession` and `createOAuth2Token` methods to authenticate. Includes a sign-in page, a sign-up page, and account page.
 
 ## Getting started
 
