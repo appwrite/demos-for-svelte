@@ -1,5 +1,5 @@
 import type { RequestEvent } from '@sveltejs/kit';
-import { Client, Account } from 'luke-node-appwrite-ssr';
+import { Client, Account } from 'node-appwrite';
 import { APPWRITE_KEY } from '$env/static/private';
 import { PUBLIC_APPWRITE_ENDPOINT, PUBLIC_APPWRITE_PROJECT_ID } from '$env/static/public';
 

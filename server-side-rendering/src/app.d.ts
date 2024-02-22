@@ -1,4 +1,4 @@
-import type { Models } from 'luke-node-appwrite-ssr';
+import type { Models } from 'node-appwrite';
 import type { AppwriteService } from '$lib/server/appwrite';
 
 // See https://kit.svelte.dev/docs/types#app

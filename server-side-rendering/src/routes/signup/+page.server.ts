@@ -1,6 +1,6 @@
 import { SESSION_COOKIE, createAdminAppwrite } from '$lib/server/appwrite.js';
 import { redirect } from '@sveltejs/kit';
-import { ID } from 'luke-node-appwrite-ssr';
+import { ID } from 'node-appwrite';
 
 export function load({ locals }) {
 	if (locals.user) throw redirect(301, '/');
