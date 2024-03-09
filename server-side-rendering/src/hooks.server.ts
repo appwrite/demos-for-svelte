@@ -1,9 +1,8 @@
-import { createUserAppwrite } from '$lib/server/appwrite';
+import { createSessionClient } from '$lib/server/appwrite';
 
 export async function handle({ event, resolve }) {
-	const { account } = createUserAppwrite(event);
-
 	try {
+		const { account } = createSessionClient(event);
 		event.locals.user = await account.get();
 	} catch {}
 

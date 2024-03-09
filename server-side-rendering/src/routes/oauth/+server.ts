@@ -1,13 +1,14 @@
-import { SESSION_COOKIE, createAdminAppwrite } from '$lib/server/appwrite.js';
+import { SESSION_COOKIE, createAdminClient } from '$lib/server/appwrite.js';
 import { error } from '@sveltejs/kit';
 
 export async function POST(event) {
-	const { account } = createAdminAppwrite();
+	const { account } = createAdminClient();
 
-	const successUrl = `${event.url.origin}/oauth`;
-	const failureUrl = `${event.url.origin}/signin?error=1`;
-
-	const redirectUrl = await account.createOAuth2Token('github', successUrl, failureUrl);
+	const redirectUrl = await account.createOAuth2Token(
+		'github',
+		`${event.url.origin}/oauth`,
+		`${event.url.origin}/signin`
+	);
 
 	return Response.redirect(redirectUrl, 302);
 }
@@ -20,7 +21,7 @@ export async function GET(event) {
 		throw error(500, 'OAuth failed - no userId or secret passed');
 	}
 
-	const { account } = createAdminAppwrite();
+	const { account } = createAdminClient();
 	const session = await account.createSession(userId, secret);
 
 	if (!session || !session.secret) {

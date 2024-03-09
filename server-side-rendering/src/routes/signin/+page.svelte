@@ -19,6 +19,7 @@
 					<div class="input-text-wrapper">
 						<input
 							id="email"
+							name="email"
 							placeholder="Email"
 							type="email"
 							class="input-text"
@@ -31,6 +32,7 @@
 					<div class="input-text-wrapper" style="--amount-of-buttons: 1">
 						<input
 							id="password"
+							name="password"
 							placeholder="Password"
 							minlength="8"
 							type="password"
@@ -46,15 +48,14 @@
 					<button class="button is-full-width" type="submit"> Sign in</button>
 				</li>
 				<span class="with-separators eyebrow-heading-3">or</span>
-				<li class="form-item">
-					<form class="form common-section" method="POST" action="/oauth">
-						<button class="button is-github is-full-width" type="submit">
-							<span class="icon-github" aria-hidden="true" />
-							<span class="text">Sign in with GitHub</span></button
-						>
-					</form>
-				</li>
+				<li class="form-item" />
 			</ul>
+		</form>
+		<form class="form common-section" method="POST" action="/oauth">
+			<button class="button is-github is-full-width" type="submit">
+				<span class="icon-github" aria-hidden="true" />
+				<span class="text">Sign in with GitHub</span></button
+			>
 		</form>
 	</div>
 	<ul class="inline-links is-center is-with-sep u-margin-block-start-32">

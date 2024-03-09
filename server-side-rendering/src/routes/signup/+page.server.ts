@@ -1,4 +1,4 @@
-import { SESSION_COOKIE, createAdminAppwrite } from '$lib/server/appwrite.js';
+import { SESSION_COOKIE, createAdminClient } from '$lib/server/appwrite.js';
 import { redirect } from '@sveltejs/kit';
 import { ID } from 'node-appwrite';
 
@@ -8,7 +8,7 @@ export function load({ locals }) {
 
 export const actions = {
 	default: async (event) => {
-		const { account } = createAdminAppwrite();
+		const { account } = createAdminClient();
 
 		const form = await event.request.formData();
 
