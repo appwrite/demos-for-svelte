@@ -5,6 +5,7 @@ This is a demo of how to use SvelteKit with Appwrite for server-side rendering. 
 ## Getting started
 
 Create a new project on Appwrite console, and an API key with the following permissions:
+
 - `sessions.write`
 
 Create an OAuth2 GitHub app and then use the details to enable GitHub authentication on Appwrite console.

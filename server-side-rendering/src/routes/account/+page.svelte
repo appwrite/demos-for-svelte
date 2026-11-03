@@ -22,13 +22,13 @@
 						<span class="text">{user.$id}</span>
 						<div class="u-flex u-cross-child-start u-gap-8">
 							<button class="interactive-text-output-button" aria-label="copy text">
-								<span class="icon-duplicate" aria-hidden="true" />
+								<span class="icon-duplicate" aria-hidden="true"></span>
 							</button>
 						</div>
 					</div>
 				</span>
-				<span class="user-profile-sep" />
-				<span class="user-profile-empty-column" />
+				<span class="user-profile-sep"></span>
+				<span class="user-profile-empty-column"></span>
 				<span class="user-profile-info"><span class="text">Welcome back, {user.name}!</span></span>
 			</div>
 		</section>

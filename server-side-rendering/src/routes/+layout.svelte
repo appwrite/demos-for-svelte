@@ -1,8 +1,8 @@
 <script lang="ts">
-	import '@appwrite.io/pink';
-	import '@appwrite.io/pink-icons';
-	import AppwriteLogoDark from '$lib/images/appwrite-logo-dark.svg';
-	import LoginImageDark from '$lib/images/login-dark-mode.png';
+	import '@appwrite.io/pink/dist/pink.css';
+	import '@appwrite.io/pink-icons/dist/icon.css';
+	import AppwriteLogoDark from '#lib/images/appwrite-logo-dark.svg';
+	import LoginImageDark from '#lib/images/login-dark-mode.png';
 </script>
 
 <svelte:head><title>Server side rendering with Appwrite</title></svelte:head>
@@ -12,7 +12,7 @@
 		<div class="tag-line is-not-mobile">
 			<p>Server side rendering<span class="underscore">_</span></p>
 		</div>
-		<div class="u-flex u-stretch" />
+		<div class="u-flex u-stretch"></div>
 		<div class="logo u-flex u-gap-16">
 			<a href="/">
 				<img src={AppwriteLogoDark} width="160" class="u-block" alt="Appwrite Logo" />
