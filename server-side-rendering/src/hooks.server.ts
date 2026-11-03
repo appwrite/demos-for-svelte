@@ -1,4 +1,4 @@
-import { createSessionClient } from '$lib/server/appwrite';
+import { createSessionClient } from '#lib/server/appwrite.js';
 
 export async function handle({ event, resolve }) {
 	try {

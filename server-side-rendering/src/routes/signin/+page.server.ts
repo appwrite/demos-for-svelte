@@ -1,4 +1,4 @@
-import { SESSION_COOKIE, createAdminClient } from '$lib/server/appwrite.js';
+import { SESSION_COOKIE, createAdminClient } from '#lib/server/appwrite.js';
 import { redirect } from '@sveltejs/kit';
 
 export function load({ locals }) {
